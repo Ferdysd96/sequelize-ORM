@@ -7,7 +7,7 @@ First you must config your database credentials in file .env, so if file is .env
 
 -npm run serve.
 
-If you are going to use MSSQ you should add trustServerCertificate:false, like in the funciton below. This function is located in file.
+If you are going to use MSSQ, you should add trustServerCertificate:false, like in the funciton below. This function is located in file.
 
 node_modules\sequelize\lib\dialects\mssql\connection-manager.js
 
