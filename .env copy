@@ -1,0 +1,9 @@
+db_user=
+db_password=
+db_server=localhost
+db_port=
+db_database=
+db_dialect=mssql
+
+app_port=4000
+secret_key=
