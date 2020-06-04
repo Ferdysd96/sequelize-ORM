@@ -1,7 +1,7 @@
 # Node.js
 Application Programming Interface with node.js 
 
-First you must config your database credentials in file .env, so if file is .env copy, you should change the name to .env.
+First you must config your database credentials in file .env, so if file is .env copy, you should change the name to .env
 
 -npm install .
 
