@@ -18,12 +18,12 @@ app.use(cors());
 
 
 //Routes
-app.get('/', (req, res) => res.send('<h1>Welcome</h1>'));
+app.get('/', (req, res) => res.send('<h1>Welcome </h1>'));
 app.use('/session', require('./routes/session'));
 app.use('/api/users', require('./routes/user'));
 app.use('/api/countries', require('./routes/country'));
 app.use('/api/cities', require('./routes/city'));
 app.use('/api/roles', require('./routes/userRol'));
 
-//from my pc
+
 module.exports = app;
