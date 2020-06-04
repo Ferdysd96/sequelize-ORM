@@ -7,5 +7,3 @@ async function main() {
 }
 
 main();
-
-//mensage
