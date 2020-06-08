@@ -1,8 +1,9 @@
 'use strict'
 const DataType = require('sequelize');
 const sequelize = require('../database/config');
+const cities = require('./city');
 
-const country = sequelize.define('countries', {
+const countries = sequelize.define('countries', {
     id: {
         type: DataType.INTEGER,
         allowNull: false,
@@ -32,5 +33,7 @@ const country = sequelize.define('countries', {
     },
 });
 
-module.exports = country;
+countries.hasMany(cities, {foreignKey: 'country_id', sourceKey: 'id' });
+//cities.belongsTo(countries, { foreignKey: 'country_id', sourceKey: 'id' });
 
+module.exports = countries;

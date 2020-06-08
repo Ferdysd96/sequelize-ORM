@@ -5,7 +5,7 @@ const cityController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await model.findAll();
+            const data = await model.findAll({include:'countries'});
             res.status(200).json({ success: true, data });
         }
         catch (error) {

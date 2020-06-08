@@ -2,7 +2,7 @@
 const DataType = require('sequelize');
 const sequelize = require('../database/config');
 
-const city = sequelize.define('cities', {
+const cities = sequelize.define('cities', {
     id: {
         type: DataType.INTEGER,
         allowNull: false,
@@ -33,6 +33,5 @@ const city = sequelize.define('cities', {
 
 });
 
-module.exports = city;
-
+module.exports = cities;
 
