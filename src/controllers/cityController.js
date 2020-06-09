@@ -5,7 +5,7 @@ const cityController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await model.findAll({include:'countries'});
+            const data = await model.findAll({ include: 'country' });
             res.status(200).json({ success: true, data });
         }
         catch (error) {
@@ -16,7 +16,7 @@ const cityController = {
     getById: async (req, res) => {
         try {
             const id = req.params.id;
-            const data = await model.findByPk(id);
+            const data = await model.findByPk(id, { include: 'country' });
             res.status(200).json({ success: true, data });
         } catch (error) {
             res.status(500).json({ success: false, message: 'Something went wrong!', error: error.message });
@@ -52,12 +52,13 @@ const cityController = {
             },
                 {
                     where: { id },
-                });
-                
+                }
+            );
+
             if (data == 0) {
                 res.status(404).json({ success: false, message: 'Something went wrong!', error: 'Invalid id' });
             } else {
-                res.status(200).json({ success: true, message: 'Data was saved'});
+                res.status(200).json({ success: true, message: 'Data was saved' });
             }
         } catch (error) {
             res.status(500).json({ success: false, message: 'Something went wrong!', error: error.message });

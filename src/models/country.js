@@ -33,7 +33,7 @@ const countries = sequelize.define('countries', {
     },
 });
 
-countries.hasMany(cities, {foreignKey: 'country_id', sourceKey: 'id' });
-//cities.belongsTo(countries, { foreignKey: 'country_id', sourceKey: 'id' });
+cities.belongsTo(countries, { foreignKey:'country_id', sourceKey: 'id' });
+countries.hasMany(cities, { foreignKey: 'country_id', sourceKey: 'id' });
 
 module.exports = countries;

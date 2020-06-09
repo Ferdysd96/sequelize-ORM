@@ -33,5 +33,6 @@ const cities = sequelize.define('cities', {
 
 });
 
+
 module.exports = cities;
 

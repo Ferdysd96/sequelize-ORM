@@ -51,7 +51,8 @@ const countryController = {
             },
                 {
                     where: { id },
-                });
+                }
+            );
 
             if (data == 0) {
                 res.status(404).json({ success: false, message: 'Something went wrong!', error: 'Invalid id' });
