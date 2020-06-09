@@ -8,8 +8,7 @@ module.exports = async (req, res, next) => {
         const { authorization } = req.headers;
 
         await jwt.verify(authorization, process.env.secret_key);
-        const payload = await jwt.decode(authorization);
-        req.user = await payload;
+        req.user = await jwt.decode(authorization);
         next();
 
     } catch (e) {
