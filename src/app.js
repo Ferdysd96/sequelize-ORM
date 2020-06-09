@@ -16,7 +16,6 @@ app.use(compression());
 app.use(express.json());
 app.use(cors());
 
-
 //Routes
 app.get('/', (req, res) => res.send('<h1>Welcome</h1>'));
 app.use('/session', require('./routes/session'));
