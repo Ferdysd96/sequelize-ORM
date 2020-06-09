@@ -3,7 +3,7 @@ const model = require('../models/userRol');
 const cityController = {
     getAll: async (req, res) => {
         try {
-            const data = await model.findAll();
+            const data = await model.findAll({include:'users'});
             res.status(200).json({ success: true, data });
         }
         catch (error) {
@@ -14,7 +14,7 @@ const cityController = {
     getById: async (req, res) => {
         try {
             const id = req.params.id;
-            const data = await model.findByPk(id);
+            const data = await model.findByPk(id, {include:'users'});
             res.status(200).json({ success: true, data });
         } catch (error) {
             res.status(500).json({ success: false, message: 'Something went wrong!', error: error.message });

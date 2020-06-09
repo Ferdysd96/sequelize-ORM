@@ -3,14 +3,12 @@ const model = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('../helpers/jwtPayload');
 const { Op } = require("sequelize");
-const fs = require('fs');
-const path = require('path');
 
 const countryController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await model.findAll();
+            const data = await model.findAll({include:'role'});
             res.status(200).json({ success: true, data });
         }
         catch (error) {
@@ -21,7 +19,7 @@ const countryController = {
     getById: async (req, res) => {
         try {
             const id = req.params.id;
-            const data = await model.findByPk(id);
+            const data = await model.findByPk(id, {include:'role'});
             res.status(200).json({ success: true, data });
         } catch (error) {
             res.status(500).json({ success: false, message: 'Something went wrong!', error: error.message });
@@ -147,7 +145,6 @@ const countryController = {
             res.status(500).json({ success: false, message: 'Something went wrong!', error: error.message });
         }
     }
-
 };
 
 module.exports = countryController;

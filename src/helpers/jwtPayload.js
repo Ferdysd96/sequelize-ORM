@@ -1,6 +1,6 @@
 'use strict'
 require('dotenv').config();
-const jwt = require('jwt-simple');
+const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
 exports.createToken = (user) => {
@@ -13,8 +13,8 @@ exports.createToken = (user) => {
         role_id: user.role_id,
         image: user.image,
         iat: moment().unix(),
-        exp: moment().add(7, 'days').unix()
+        exp: moment().add(1, 'hour').unix()
     };
 
-  return jwt.encode(payload, process.env.secret_key);
+  return jwt.sign(payload, process.env.secret_key);
 }

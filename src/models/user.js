@@ -1,8 +1,9 @@
 'use strict'
 const DataType = require('sequelize');
 const sequelize = require('../database/config');
+const roles = require('./userRol');
 
-const country = sequelize.define('users', {
+const users = sequelize.define('users', {
     id: {
         type: DataType.INTEGER,
         allowNull: false,
@@ -44,7 +45,7 @@ const country = sequelize.define('users', {
         allowNull: false,
     },
     role_id: {
-        type: DataType.STRING(100),
+        type: DataType.INTEGER,
         allowNull: false,
         validate: {
             notEmpty: false
@@ -64,5 +65,6 @@ const country = sequelize.define('users', {
     }
 });
 
-
-module.exports = country;
+ users.belongsTo(roles, { as:'role', foreignKey: 'role_id', sourceKey: 'id' });
+ roles.hasMany(users, { foreignKey: 'role_id', sourceKey: 'id' });
+module.exports = users;

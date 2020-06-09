@@ -11,7 +11,7 @@ const app = express();
 app.set('port', parseInt(process.env.app_port) || 4000);
 
 //Middlewares
-//app.all('/api/*',JwtAuth);
+app.all('/api/*',JwtAuth);
 app.use(compression());
 app.use(express.json());
 app.use(cors());

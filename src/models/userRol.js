@@ -2,7 +2,7 @@
 const DataType = require('sequelize');
 const sequelize = require('../database/config');
 
- const rol = sequelize.define('user_roles', {
+ const roles = sequelize.define('user_roles', {
     id: {
         type: DataType.INTEGER,
         allowNull: false,
@@ -25,5 +25,5 @@ const sequelize = require('../database/config');
     },  
 });
 
-module.exports = rol;
+module.exports = roles;
 
