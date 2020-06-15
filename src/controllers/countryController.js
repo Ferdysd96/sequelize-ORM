@@ -1,11 +1,11 @@
 'use strict'
-const model = require('../models/country');
+const model = require('../database/models').country;
 
 const countryController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await model.findAll({include:'cities'});
+            const data = await model.findAll({ include: 'cities' });
             res.status(200).json({ success: true, data });
         }
         catch (error) {
@@ -16,7 +16,7 @@ const countryController = {
     getById: async (req, res) => {
         try {
             const id = req.params.id;
-            const data = await model.findByPk(id, {include:'cities'});
+            const data = await model.findByPk(id, { include: 'cities' });
             res.status(200).json({ success: true, data });
         } catch (error) {
             res.status(500).json({ success: false, message: 'Something went wrong!', error: error.message });
@@ -44,7 +44,7 @@ const countryController = {
             const id = req.params.id;
             const { description, demonym, status } = req.body;
 
-            const data = await model.update({
+            const affected = await model.update({
                 description,
                 demonym,
                 status
@@ -54,7 +54,7 @@ const countryController = {
                 }
             );
 
-            if (data == 0) {
+            if (affected == 0) {
                 res.status(404).json({ success: false, message: 'Something went wrong!', error: 'Invalid id' });
             } else {
                 res.status(200).json({ success: true, message: 'Data was saved' });

@@ -1,5 +1,5 @@
 'use strict'
-const model = require('../models/user');
+const model = require('../database/models').user;
 const bcrypt = require('bcrypt');
 const jwt = require('../helpers/jwtPayload');
 const { Op } = require("sequelize");
@@ -8,7 +8,7 @@ const countryController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await model.findAll({include:'role'});
+            const data = await model.findAll();
             res.status(200).json({ success: true, data });
         }
         catch (error) {
@@ -19,7 +19,7 @@ const countryController = {
     getById: async (req, res) => {
         try {
             const id = req.params.id;
-            const data = await model.findByPk(id, {include:'role'});
+            const data = await model.findByPk(id);
             res.status(200).json({ success: true, data });
         } catch (error) {
             res.status(500).json({ success: false, message: 'Something went wrong!', error: error.message });
@@ -30,8 +30,8 @@ const countryController = {
         try {
             const { name, surname, email, password, telephone, role_id, status } = req.body;
 
-            const user = await model.findOne({ where: { email: email.toLowerCase() } });
-            if (user) {
+            const userData = await model.findOne({ where: { email: email.toLowerCase() } });
+            if (userData) {
                 res.status(500).json({ success: false, message: 'User is taken already!' });
             } else {
                 const encriptPassword = await bcrypt.hash(password, 10);
@@ -59,14 +59,14 @@ const countryController = {
         try {
             const id = req.params.id;
             const { name, surname, email, password, telephone, role_id, status } = req.body;
-            const user = await model.findOne({ where: { email: email.toLowerCase(), id: { [Op.ne]: id } } });
+            const userData = await model.findOne({ where: { email: email.toLowerCase(), id: { [Op.ne]: id } } });
 
-            if (user) {
+            if (userData) {
                 res.status(500).json({ success: false, message: 'User is taken already!' });
             } else {
 
                 const encriptPassword = await bcrypt.hash(password, 10);
-                const data = await model.update({
+                const affected = await model.update({
                     name,
                     surname,
                     email: email.toLowerCase(),
@@ -78,7 +78,7 @@ const countryController = {
                     where: { id },
                 });
 
-                if (data == 0) {
+                if (affected == 0) {
                     res.status(404).json({ success: false, message: 'Something went wrong!', error: 'Invalid id' });
                 } else {
                     res.status(200).json({ success: true, message: 'Data was saved' });
@@ -94,13 +94,13 @@ const countryController = {
 
             let { email, password, getToken } = req.body;
 
-            const user = await model.findOne({ where: { email }, attributes: { include: ['password'] }, });
+            const userData = await model.findOne({ where: { email }, attributes: { include: ['password'] }, });
 
-            if (!user) {
+            if (!userData) {
                 res.status(404).json({ success: false, message: 'Email or password is wrong!' });
             }
             else {
-                if (user.status == 1) {
+                if (userData.status == 1) {
                     res.status(401).json({ success: false, message: 'User is cancelled!' });
                 } else {
                     const match = await bcrypt.compare(password, user.password);
@@ -110,8 +110,8 @@ const countryController = {
                             const token = await jwt.createToken(user);
                             res.status(200).json({ success: true, token });
                         } else {
-                            user.password = undefined;
-                            res.status(200).json({ success: true, identity: user });
+                            userData.password = undefined;
+                            res.status(200).json({ success: true, identity: userData });
                         }
                     } else {
                         res.status(404).json({ success: false, message: 'Email or password is wrong!' });

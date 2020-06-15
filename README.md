@@ -3,6 +3,9 @@ Application Programming Interface with node.js
 
 First you must config your database credentials in file .env, so if file is .env copy, you should rename to .env
 
+-npm install --save sequelize-cli
+-npx sequelize-cli db:migrate
+
 -npm install .
 
 -npm run serve.
@@ -10,7 +13,6 @@ First you must config your database credentials in file .env, so if file is .env
 If you are going to use MSSQ, you should add trustServerCertificate:false, like in the funciton below. This function is located in file.
 
 node_modules\sequelize\lib\dialects\mssql\connection-manager.js
-
 
  connect(config) {
     const connectionConfig = {

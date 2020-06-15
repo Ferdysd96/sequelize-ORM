@@ -1,13 +1,13 @@
 {
-  "name": "sequelizeORM",
+  "name": "BaseProyect",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "nodemon src/index.js"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ferdys Durán",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^4.0.1",

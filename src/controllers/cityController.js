@@ -1,5 +1,5 @@
 'use strict'
-const model = require('../models/city');
+const model = require('../database/models').city;
 
 const cityController = {
 
@@ -45,7 +45,7 @@ const cityController = {
             const id = req.params.id;
             const { description, country_id, status } = req.body;
 
-            const data = await model.update({
+            const affected = await model.update({
                 description,
                 country_id,
                 status
@@ -55,7 +55,7 @@ const cityController = {
                 }
             );
 
-            if (data == 0) {
+            if (affected == 0) {
                 res.status(404).json({ success: false, message: 'Something went wrong!', error: 'Invalid id' });
             } else {
                 res.status(200).json({ success: true, message: 'Data was saved' });
